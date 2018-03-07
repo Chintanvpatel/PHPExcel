@@ -232,8 +232,24 @@ class PHPExcel_Reader_CSV extends PHPExcel_Reader_Abstract implements PHPExcel_R
         $objPHPExcel = new PHPExcel();
 
         // Load into this instance
-        return $this->loadIntoExisting($pFilename, $objPHPExcel);
+        return $this->loadExisting($pFilename, $objPHPExcel);
     }
+    
+    public function loadExisting($pFilename, PHPExcel $objPHPExcel)
+	{
+		$lineEnding = ini_get('auto_detect_line_endings');
+		ini_set('auto_detect_line_endings', true);
+                
+                $csv = \League\Csv\Reader::createFromPath(new SplFileObject($pFilename));
+                
+                $csv->setDelimiter($this->_delimiter);
+                $csv->setEnclosure($this->_enclosure);
+                //$csv->setEscape($this->_enclosure);
+                
+		ini_set('auto_detect_line_endings', $lineEnding);
+		// Return
+		return $csv;
+	}
 
     /**
      * Loads PHPExcel from file into PHPExcel instance
