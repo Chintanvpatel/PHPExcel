@@ -242,8 +242,8 @@ class PHPExcel_Reader_CSV extends PHPExcel_Reader_Abstract implements PHPExcel_R
                 
                 $csv = \League\Csv\Reader::createFromPath(new SplFileObject($pFilename));
                 
-                $csv->setDelimiter($this->_delimiter);
-                $csv->setEnclosure($this->_enclosure);
+                $csv->setDelimiter($this->delimiter);
+                $csv->setEnclosure($this->enclosure);
                 //$csv->setEscape($this->_enclosure);
                 
 		ini_set('auto_detect_line_endings', $lineEnding);
